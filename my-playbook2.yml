@@ -1,0 +1,23 @@
+- name: play1
+  gather_facts: false
+  hosts: web_servers
+  tasks:
+   - name: update
+     tags: update
+     apt: 
+      update_cache: true
+      name: nginx
+      state: latest 
+
+   - name: installation
+     tags: install
+     apt: 
+      name: nginx
+      state: latest 
+
+   - name: restart web server
+     tags: always
+     sysvinit: 
+       name: nginx
+       state: restarted
+   

@@ -1,0 +1,19 @@
+- name: play1
+  gather_facts: false
+  hosts: web_servers
+  tasks:
+   - name: update
+     apt: 
+      update_cache: true
+      name: nginx
+      state: latest 
+
+   - name: copy file
+     copy: 
+      src: ./index.html
+      dest: /var/www/html/index.html
+
+   - name: restart web server
+     sysvinit: 
+       name: nginx
+       state: restarted
